@@ -17,6 +17,8 @@ class CreatePostFilesTable extends Migration
             $table->bigIncrements('id');
             $table->string('src');
             $table->string('type')->default('photo');
+            $table->unsignedBigInteger('post_id');
+            $table->foreign('post_id')->references('id')->on('posts');
             $table->timestamps();
         });
     }

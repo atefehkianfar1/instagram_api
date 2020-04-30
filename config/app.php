@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Tehran',
 
     /*
     |--------------------------------------------------------------------------
@@ -162,7 +162,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
-//        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        Hekmatinasser\Verta\VertaServiceProvider::class,
+
         /*
          * Package Service Providers...
          */
@@ -226,6 +227,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'Verta' => Hekmatinasser\Verta\Verta::class,
     ],
 
 ];

@@ -16,10 +16,11 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('test',function (){
-    return 5;
-});
 Route::prefix('/v1')->group(function () {
     Route::post('login','SignInController@login');
+
+    Route::prefix('/post')->group(function () {
+        Route::get('mine','AppController@post_mine');
+    });
 });
 

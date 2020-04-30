@@ -17,12 +17,13 @@ class DatabaseSeeder extends Seeder
                 'username' => $faker->userName,
                 'name' => $faker->name,
                 'website' => $faker->url,
-                'bio' => $faker->paragraph,
+                'bio' => $faker->text,
                 'profile_photo'=>'public/image/user/user16.png',
                 'email' => $faker->unique()->safeEmail,
                 'password' => bcrypt('password'),
                 'active' => 1
             ]);
         }
+
     }
 }
