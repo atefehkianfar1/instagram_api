@@ -14,7 +14,7 @@ class PostClass extends Controller
         $this->date=new DateTimeClass();
     }
     public function mine($user_id){
-        $items= Post::where('user_id',$user_id)->with('files')->get();
+        $items= Post::where('user_id',$user_id)->with('user','files')->get();
         $this->handle_post_items($items);
         return $items;
     }

@@ -452,7 +452,7 @@ class JsonResponseClass
         switch ($status) {
             case 200:
                 $json = [
-                    "title" => "عملیات موفق",
+                    "title" => "Logged in successfully",
                     "msg" => "pick the token from content field",
                     "content" => $token,
                     "user" => $user,
@@ -464,7 +464,7 @@ class JsonResponseClass
             case 400:
                 $json = [
                     "title" => "خطایی رخ داده است",
-                    "msg" => "خطایی رخ داده است با پشتیبانی تماس بگیرید",
+                    "msg" => "Check your connection",
                     "content" => "",
                     "user" => $empty_user,
                     "status" => 'error',
@@ -475,7 +475,7 @@ class JsonResponseClass
             case 401:
                 $json = [
                     "title" => "رمز عبور اشتباه است",
-                    "msg" => "رمز عبور را اشتباه وارد کرده اید",
+                    "msg" => "ٌWrong Password",
                     "content" => "",
                     "user" => $empty_user,
                     "status" => 'wrong_password',
@@ -485,8 +485,8 @@ class JsonResponseClass
                 break;
             case 402:
                 $json = [
-                    "title" => "کاربر غیرفعال است",
-                    "msg" => "",
+                    "title" => "User has been inactive by system manager",
+                    "msg" => "User is inactive",
                     "content" => "",
                     "user" => $empty_user,
                     "status" => 'inactive',
@@ -496,19 +496,19 @@ class JsonResponseClass
                 break;
             case 403:
                 $json = [
-                    "title" => "عملیات ناموفق",
-                    "msg" => "اطلاعاتی که وارد کرده اید معتبر نیست",
+                    "title" => "Something goes wrong",
+                    "msg" => "Forbidden",
                     "content" => "",
                     "user" => $empty_user,
-                    "status" => 'invalid_credentials',
+                    "status" => 'forbidden',
                     "code" => 403,
                     "http_code" => 403,
                 ];
                 break;
             case 404:
                 $json = [
-                    "title" => "عملیات ناموفق",
-                    "msg" => "اطلاعاتی که وارد کرده اید معتبر نیست",
+                    "title" => "ERROR! Call the support",
+                    "msg" => "Invalid Credential",
                     "content" => "",
                     "user" => $empty_user,
                     "status" => 'invalid_credentials',
