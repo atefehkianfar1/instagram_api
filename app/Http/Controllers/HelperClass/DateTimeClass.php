@@ -22,7 +22,6 @@ class DateTimeClass extends Controller
 //        return  $date;// 1395-12-10 23:37:26
     }
     public function changeTime($item){
-
         $item->ago= $item->created_at->diffForHumans();
 //        $item->date=$this->toPersianMonthName($item->created_at);
 //        $item->created_at=$this->toPersian($item->created_at);

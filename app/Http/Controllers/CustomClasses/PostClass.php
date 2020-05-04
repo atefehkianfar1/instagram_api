@@ -18,12 +18,13 @@ class PostClass extends Controller
         $this->handle_post_items($items);
         return $items;
     }
-    private function handle_post_items($items){
+
+    public function handle_post_items($items){
         foreach ($items as $item){
             $this->handle_post($item);
         }
     }
-    private function handle_post($item){
+    public function handle_post($item){
         $this->date->changeTime($item);
         return $item;
     }

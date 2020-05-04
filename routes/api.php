@@ -18,7 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::prefix('/v1')->group(function () {
     Route::post('login','SignInController@login');
-
+    Route::prefix('/user')->group(function () {
+        Route::post('search','AppController@user_search');
+        Route::get('profile','AppController@user_profile');
+    });
     Route::prefix('/post')->group(function () {
         Route::get('mine','AppController@post_mine');
     });

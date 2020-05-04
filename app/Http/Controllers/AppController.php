@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\CustomClasses\CommentClass;
 use App\Http\Controllers\CustomClasses\PostClass;
+use App\Http\Controllers\CustomClasses\UserClass;
 use App\Http\Controllers\HelperClass\GlobalVariables;
 use App\Http\Controllers\HelperClass\JsonResponseClass;
+use App\Http\Controllers\HelperClass\SearchClass;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,10 +17,11 @@ class AppController extends Controller
 {
     public function __construct()
     {
-        $this->user=User::first();
+        $this->user=new UserClass();
         $this->json=new JsonResponseClass();
         $this->post=new PostClass();
         $this->comment=new CommentClass();
+        $this->search=new SearchClass();
         $this->key=GlobalVariables::$api_key;
     }
     //List of posts that belongs to me for profile page
@@ -31,6 +34,26 @@ class AppController extends Controller
         }
         $items = $this->post->mine($user->id);
         return response()->json($this->json->json_items($items,'posts'));
+    }
+    public function user_search(Request $request){
+        $this->validate($request,[
+            'token'=>'required'
+        ]);
+        if (!$user = JWTAuth::parseToken()->authenticate()) {
+            return response()->json($this->json->json_auth(404,'',$user), 404);
+        }
+        $items = $this->search->users($request->searchText,$user->id);
+        return response()->json($this->json->json_items($items,'users'));
+    }
+    public function user_profile(Request $request){
+        $this->validate($request,[
+            'token'=>'required'
+        ]);
+        if (!$user = JWTAuth::parseToken()->authenticate()) {
+            return response()->json($this->json->json_auth(404,'',$user), 404);
+        }
+        $items = $this->user->profile($request->user_id,$user->id);
+        return response()->json($this->json->single_item($items,'user_id :'.$request->user_id));
     }
     //List of user posts that i followed
     public function followed_page_post(Request $request){
