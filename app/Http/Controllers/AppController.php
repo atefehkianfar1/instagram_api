@@ -35,6 +35,18 @@ class AppController extends Controller
         $items = $this->post->mine($user->id);
         return response()->json($this->json->json_items($items,'posts'));
     }
+    public function post_like(Request $request){
+        $this->validate($request,[
+            'token'=>'required'
+        ]);
+        if (!$user = JWTAuth::parseToken()->authenticate()) {
+            return response()->json($this->json->json_auth(404,'',$user), 404);
+        }
+        $item = $this->post->like_dislike($user->id,$request->post_id);
+        return response()->json($this->json->json_response_parameter($item['code'],$item['status']));
+    }
+    //End Post
+    //Search
     public function user_search(Request $request){
         $this->validate($request,[
             'token'=>'required'
@@ -42,9 +54,10 @@ class AppController extends Controller
         if (!$user = JWTAuth::parseToken()->authenticate()) {
             return response()->json($this->json->json_auth(404,'',$user), 404);
         }
-        $items = $this->search->users($request->searchText,$user->id);
+        $items = $this->user->user_search($request->searchText,$user->id);
         return response()->json($this->json->json_items($items,'users'));
     }
+    //End Search
     public function user_profile(Request $request){
         $this->validate($request,[
             'token'=>'required'
@@ -52,8 +65,8 @@ class AppController extends Controller
         if (!$user = JWTAuth::parseToken()->authenticate()) {
             return response()->json($this->json->json_auth(404,'',$user), 404);
         }
-        $items = $this->user->profile($request->user_id,$user->id);
-        return response()->json($this->json->single_item($items,'user_id :'.$request->user_id));
+        $item = $this->user->profile($request->user_id,$user->id);
+        return response()->json($this->json->single_item($item,'user_id :'.$request->user_id));
     }
     //List of user posts that i followed
     public function followed_page_post(Request $request){
@@ -66,4 +79,5 @@ class AppController extends Controller
         $items = $this->post->mine($user->id);
         return response()->json($this->json->json_items($items,'posts'));
     }
+
 }

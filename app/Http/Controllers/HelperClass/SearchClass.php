@@ -51,13 +51,7 @@ class SearchClass
 //        }
 //        return $items->sortByDesc('created_at');
 //    }
-    public function users($text,$me_id){
-        $items=User::where([['name','like', '%'.$text.'%'],['active',1]])
-            ->orWhere([['username','like', '%'.$text.'%'],['active',1]])->get();
-        $user_object=new UserClass();
-        $user_object->handle_user_items($items,$me_id);
-        return $items;
-    }
+
 
 //    public function products($text,$user_id){
 //        $items=Product::where([['title','like', '%'.$text.'%'],['active',1]])

@@ -24,6 +24,7 @@ Route::prefix('/v1')->group(function () {
     });
     Route::prefix('/post')->group(function () {
         Route::get('mine','AppController@post_mine');
+        Route::post('like_dislike','AppController@post_like');
     });
 });
 

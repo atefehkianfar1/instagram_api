@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
                 'name' => $faker->name,
                 'website' => $faker->url,
                 'bio' => $faker->text,
-                'profile_photo'=>'public/image/user/user16.png',
+                'profile_photo'=>'public/image/user/user'.$index.'.png',
                 'email' => $faker->unique()->safeEmail,
                 'password' => bcrypt('password'),
                 'active' => 1

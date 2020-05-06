@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\CustomClasses;
 
+use App\Models\PostFile;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -9,7 +10,14 @@ use Illuminate\Support\Facades\DB;
 
 class UserClass extends Controller
 {
-    public function handle_user_items($items,$me_id){
+    //Start Search
+    public function user_search($text,$me_id){
+        $items=User::where([['name','like', '%'.$text.'%'],['active',1]])
+            ->orWhere([['username','like', '%'.$text.'%'],['active',1]])->get();
+        $this->handle_user_items_search($items,$me_id);
+        return $items;
+    }
+    public function handle_user_items_search($items,$me_id){
         foreach ($items as $item){
             $this->handle_user($item,$me_id);
         }
@@ -21,11 +29,13 @@ class UserClass extends Controller
         } else $item->followed=false;
         return $item;
     }
+    //End  Search
+    //Start  Profile
     public function profile($user_id,$me_id){
-        $item=User::where('id',$user_id)->with('posts')->first();
+        $user=User::where('id',$user_id)->first();
+        $this->handle_user($user,$me_id);
         $post_object=new PostClass();
-        $post_object->handle_post_items($item->posts);
-        $this->handle_user($item,$me_id);
-        return $item;
+        $user->posts=$post_object->user_posts($user_id,$me_id);
+        return $user;
     }
 }

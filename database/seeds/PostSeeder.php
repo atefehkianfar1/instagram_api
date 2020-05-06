@@ -13,23 +13,20 @@ class PostSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        foreach (range(1,10) as $index) {
-            foreach(range(1,4) as $in){
+            foreach(range(1,10) as $in){
                 DB::table('posts')->insert([
                     'caption' => $faker->text,
-                    'user_id' => $index,
+                    'user_id' => $in,
                     'active' => 1,
                     'created_at'=>Carbon::now()
                 ]);
                 foreach (range(1,3) as $i){
                     DB::table('post_files')->insert([
                         'post_id' => $in,
-                        'src' => 'public/image/post/sea2.jpg',
+                        'src' => 'public/image/post/img'.$i.'.jpg',
                         'type' => 'photo'
                     ]);
                 }
-            }
-
         }
     }
 }
