@@ -18,7 +18,7 @@ class PostClass extends Controller
     }
     public function mine($user_id){
         $items= Post::where('user_id',$user_id)->with('user','files')->get();
-        $this->handle_post_items($items);
+        $this->handle_post_items($items,$user_id);
         return $items;
     }
     public function user_posts($user_id,$me_id){
